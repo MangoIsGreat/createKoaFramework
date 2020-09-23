@@ -1,23 +1,9 @@
 const Koa = require('koa')
-const Router = require("koa-router")
-const book = require("./api/v1/book")
-const classic = require("./api/v1/classic")
-const requireDirectory = require("require-directory")
+const InitManager = require("./core/init")
 
 const app = new Koa()
 
-requireDirectory(module, './api', {
-    visit: whenLoadModule
-})
-
-function whenLoadModule(obj) {
-    if (obj instanceof Router) {
-        app.use(obj.routes())
-    }
-}
-
-app.use(book.routes())
-app.use(classic.routes())
+InitManager.initCore(app)
 
 app.listen(3000, () => {
     console.log("程序已运行在3000端口...")
