@@ -9,7 +9,8 @@ router.post("/v1/:id/classic/latest", (ctx, next) => {
     const headers = ctx.request.header
     const body = ctx.request.body
 
-    const v = new PositiveIntegerValidator().validate(ctx)
+    // const v = new PositiveIntegerValidator().validate(ctx)
+    a
 })
 
 module.exports = router
