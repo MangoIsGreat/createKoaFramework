@@ -7,6 +7,8 @@ router.post("/v1/:id/classic/latest", (ctx, next) => {
     const headers = ctx.request.header
     const body = ctx.request.body
 
+    aaa
+
     if (true) {
         const error = new global.errs.ParameterException()
 
