@@ -1,15 +1,17 @@
+const { HttpException } = require("../core/http-exception")
+
 const catchError = async(ctx, next) => {
     try {
         await next()
     } catch (error) {
-        if (error.errorCode) {
+        if (error instanceof HttpException) {
             ctx.body = {
-                msg: error.message,
+                msg: error.msg,
                 errorCode: error.errorCode,
-                requestUrl: error.requestUrl
+                requestUrl: `${ctx.method} ${ctx.path}`
             }
 
-            ctx.status = error.status
+            ctx.status = error.code
         }
     }
 }
