@@ -18,7 +18,7 @@ const sequelize = new Sequelize(dbName, username, password, {
 })
 
 sequelize.sync({
-    force: true
+    force: false
 })
 
 module.exports = {
