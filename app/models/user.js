@@ -13,7 +13,10 @@ User.init({
     },
     nickname: Sequelize.STRING,
     password: Sequelize.STRING,
-    email: Sequelize.STRING,
+    email: {
+        type: Sequelize.STRING(128),
+        unique: true
+    },
     openId: {
         type: Sequelize.STRING(64),
         unique: true
@@ -22,3 +25,7 @@ User.init({
     sequelize: db,
     tableName: 'user'
 })
+
+module.exports = {
+    User
+}
