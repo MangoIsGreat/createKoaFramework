@@ -4,13 +4,16 @@ const catchError = async(ctx, next) => {
     try {
         await next()
     } catch (error) {
-        // 开发环境：抛出异常
-        if (global.config.environment == 'dev') {
+        // 开发环境&不是HttpException：抛出异常
+        const isDev = global.config.environment == 'dev'
+        const isHttpException = error instanceof HttpException
+
+        if (isDev && !isHttpException) {
             throw error
         }
 
         // 生产环境：返回异常信息
-        if (error instanceof HttpException) {
+        if (isHttpException) {
             // 处理已知异常情况：
             ctx.body = {
                 msg: error.msg,
