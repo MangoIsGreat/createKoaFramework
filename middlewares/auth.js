@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken")
 class Auth {
     constructor(level) {
         this.level = level || 1
-        Auth.USER = 8
+        Auth.AUSE = 8
         Auth.ADMIN = 16
         Auth.SUPER_ADMIN = 24
     }

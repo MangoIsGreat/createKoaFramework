@@ -31,7 +31,7 @@ async function emailLogin(account, secret) {
     const user = await User.verifyEmailPassword(account, secret)
 
     // 发布令牌：
-    return generateToken(user.id, Auth.USER)
+    return generateToken(user.id, Auth.AUSE)
 }
 
 module.exports = router
