@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken')
-/***
- * 
- */
-const findMembers = function (instance, {
+    /***
+     * 
+     */
+const findMembers = function(instance, {
     prefix,
     specifiedType,
     filter
@@ -39,10 +39,11 @@ const findMembers = function (instance, {
     return _find(instance)
 }
 
-// 颁发令牌
-const generateToken = function (uid, scope) {
-    const secretKey = global.config.security.secretKey
+// 颁发令牌：
+const generateToken = function(uid, scope) {
+    const secretKey = global.config.security.sectetKey
     const expiresIn = global.config.security.expiresIn
+
     const token = jwt.sign({
         uid,
         scope
