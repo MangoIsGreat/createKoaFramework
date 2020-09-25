@@ -1,16 +1,18 @@
 const Router = require("koa-router")
-const router = new Router()
+const router = new Router({
+    prefix: "/v1/classic"
+})
 
 const { PositiveIntegerValidator } = require("../../validators/validator")
+const { Auth } = require("./../../../middlewares/auth")
 
-router.post("/v1/:id/classic/latest", (ctx, next) => {
-    const path = ctx.params
-    const query = ctx.request.query
-    const headers = ctx.request.header
-    const body = ctx.request.body
+router.get("/latest", new Auth().m, (ctx, next) => {
+    // const path = ctx.params
+    // const query = ctx.request.query
+    // const headers = ctx.request.header
+    // const body = ctx.request.body
 
     // const v = new PositiveIntegerValidator().validate(ctx)
-    a
 })
 
 module.exports = router
