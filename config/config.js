@@ -9,8 +9,8 @@ module.exports = {
     },
     security: {
         sectetKey: 'abcdefg',
-        // 过期时间：1小时
-        expiresIn: 60 * 60
+        // 过期时间：1个月
+        expiresIn: 60 * 60 * 24 * 30
     },
     wx: {
         appId: 'wx859326cab90073dc',
