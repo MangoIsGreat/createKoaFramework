@@ -16,19 +16,38 @@ class Favor extends Model {
             throw new global.errs.LikeError()
         }
 
-        db.transaction(async t => {
+        return db.transaction(async t => {
             await Favor.create({
                 art_id,
                 type,
                 uid
             }, { transaction: t })
-            const art = Art.getData(art_id, type)
+            const art = await Art.getData(art_id, type)
             await art.increment('fav_nums', { by: 1, transaction: t })
         })
     }
 
     static async dislike(art_id, type, uid) {
+        const favor = await Favor.findOne({
+            where: {
+                art_id,
+                type,
+                uid
+            }
+        })
 
+        if (!favor) {
+            throw new global.errs.DisLikeError()
+        }
+
+        return db.transaction(async t => {
+            await favor.destroy({
+                force: false,
+                transaction: t
+            })
+            const art = await Art.getData(art_id, type)
+            await art.decrement('fav_nums', { by: 1, transaction: t })
+        })
     }
 }
 

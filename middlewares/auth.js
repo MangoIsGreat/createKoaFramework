@@ -16,7 +16,7 @@ class Auth {
             let errMsg = "token不合法"
             let decode
 
-            if (!tokenToken && !tokenToken.name) {
+            if (!tokenToken || !tokenToken.name) {
                 throw new global.errs.Forbidden(errMsg)
             }
 
