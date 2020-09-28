@@ -6,14 +6,11 @@ const router = new Router({ prefix: '/v1/like' })
 const { success } = require("../../lib/helper")
 
 router.post("/", new Auth().m, async(ctx) => {
-    console.log(111)
     const v = await new LikeValidator().validate(ctx, {
         id: 'art_id'
     })
-    console.log(12, v)
     await Favor.like(v.get('body.art_id'), v.get('body.type'), ctx.auth.uid)
     success()
-
 })
 
 router.post("/cancel", new Auth().m, async(ctx) => {
