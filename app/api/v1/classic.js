@@ -35,4 +35,8 @@ router.get('/:type/:id/favor', new Auth().m, async(ctx) => {
     }
 })
 
+router.get('/favor', new Auth().m, async(ctx) => {
+
+})
+
 module.exports = router

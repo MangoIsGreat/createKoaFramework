@@ -1,7 +1,6 @@
 const { LinValidator, Rule } = require("../../core/lin-validator-v2")
 const { User } = require("../models/user")
 const { LoginType, ArtType } = require("../lib/enum")
-const { Art } = require("../models/art")
 
 class PositiveIntegerValidator extends LinValidator {
     constructor() {
@@ -143,9 +142,9 @@ class Checker {
 
 class LikeValidator extends PositiveIntegerValidator {
     constructor() {
-        super()
-            // const checker = new Checker(ArtType)
-            // this.validateType = checker.check.bind(checker)
+        super();
+        // const checker = new Checker(ArtType)
+        // this.validateType = checker.check.bind(checker)
         this.validateType = checkArtType
     }
 }

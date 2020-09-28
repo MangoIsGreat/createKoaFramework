@@ -1,5 +1,5 @@
 const { db } = require("../../core/db")
-const { Sequelize, Model } = require("sequelize")
+const { Sequelize, Model, Op } = require("sequelize")
 const { Art } = require("./art")
 
 class Favor extends Model {
@@ -57,6 +57,21 @@ class Favor extends Model {
             uid
         })
         return !!favor
+    }
+
+    static async getMyClassicFavors(uid) {
+        const arts = await Favor.findAll({
+            where: {
+                uid,
+                type: {
+                    [Op.not]: 400
+                }
+            }
+        })
+
+        if (!arts) {
+            throw new global.errs.NotFound()
+        }
     }
 }
 
