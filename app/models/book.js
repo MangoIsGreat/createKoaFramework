@@ -2,11 +2,23 @@ const util = require('util')
 const axios = require('axios')
 const { db } = require('../../core/db')
 const { Sequelize, Model } = require("sequelize")
+const { Favor } = require('./favor')
 
 class Book extends Model {
     constructor(id) {
         super()
         this.id = id
+    }
+
+    static async getMyFavorBookCount(uid) {
+        const count = await Favor.count({
+            where: {
+                type: 400,
+                uid
+            }
+        })
+
+        return count
     }
 
     async detail() {
