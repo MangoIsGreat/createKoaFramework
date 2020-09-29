@@ -1,5 +1,5 @@
-const { db } = require("../../core/db")
 const { Sequelize, Model, Op } = require("sequelize")
+const { db } = require("../../core/db")
 const { Art } = require("./art")
 
 class Favor extends Model {

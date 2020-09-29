@@ -1,8 +1,27 @@
-const { Movie, Sentence, Music } = require("../models/classic")
 const { Op } = require("sequelize")
 const { flatten } = require('lodash')
+const { Movie, Sentence, Music } = require("../models/classic")
 
 class Art {
+    constructor(art_id, type) {
+        this.art_id = art_id
+        this.type = type
+    }
+
+    async getDetail(uid) {
+        // 为了避免模块间的循环互相导入导致的模块导入出现"undefined"，使用在方法中导入模块的方式
+        const { Favor } = require("./favor")
+        const art = await Art.getData(this.art_id, this.type)
+        if (!art) {
+            throw new global.errs.NotFound()
+        }
+        const like = await Favor.userLikeIt(this.art_id, this.type, uid)
+        return {
+            art,
+            like_status: like
+        }
+    }
+
     static async getList(artInfoList) {
         const artInfoObj = {
             100: [],
@@ -38,13 +57,13 @@ class Art {
 
         switch (type) {
             case 100:
-                arts = await Movie.findOne(finder);
+                arts = await Movie.findAll(finder);
                 break;
             case 200:
-                arts = await Music.findOne(finder);
+                arts = await Music.findAll(finder);
                 break;
             case 300:
-                arts = await Sentence.findOne(finder);
+                arts = await Sentence.findAll(finder);
                 break;
             case 400:
                 break;
