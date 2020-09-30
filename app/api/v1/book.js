@@ -51,4 +51,27 @@ router.post('/add/short_comment', new Auth().m, async(ctx) => {
     success()
 })
 
+router.get('/:book_id/short_comment', new Auth().m, async(ctx) => {
+    const v = await new PositiveIntegerValidator().validate(ctx, {
+        id: 'book_id'
+    })
+    const comments = await Comment.getComments(v.get('path.book_id'))
+    ctx.body = comments
+})
+
+// 模拟热搜接口：
+router.get('/hot_keyword', async(ctx) => {
+    ctx.body = {
+        'hot': [
+            '哈利·波特',
+            '村上春树',
+            '东野圭吾',
+            '白夜行',
+            '韩寒',
+            '金庸',
+            '王小波'
+        ]
+    }
+})
+
 module.exports = router
