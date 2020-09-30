@@ -55,7 +55,8 @@ router.get('/:book_id/short_comment', new Auth().m, async(ctx) => {
     const v = await new PositiveIntegerValidator().validate(ctx, {
         id: 'book_id'
     })
-    const comments = await Comment.getComments(v.get('path.book_id'))
+    const book_id = v.get('path.book_id')
+    const comments = await Comment.getComments(v.get(book_id))
     ctx.body = comments
 })
 
